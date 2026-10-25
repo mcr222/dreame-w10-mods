@@ -1,0 +1,25 @@
+# Firmware binaries (copyrighted; build patched MCU images locally with mcu/patch_cliff.py)
+*.bin
+*.img
+*.tar
+*.tar.gz
+valetudo*
+
+# Device secrets: DustBuilder keys/PDF, identity backups, serial logs
+*.zip
+*.pdf
+*.id_rsa
+*.ppk
+*.log
+*_backup*
+backup*
+sn.txt
+did.txt
+key.txt
+mac.txt
+cpuid.txt
+
+# Local build output
+build/
+__pycache__/
+*.asm

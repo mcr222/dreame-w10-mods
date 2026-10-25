@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dreame W10 Root Checklist</title>
+<style>
+  @page { size: A4; margin: 12mm; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font: 11px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: #111; background: #fff; margin: 0 auto; max-width: 190mm; padding: 8mm 16px; }
+  h1 { font-size: 19px; margin: 0 0 2px; }
+  h2 { font-size: 13.5px; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #111; break-after: avoid; }
+  h2 .tag { font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 9px; margin-left: 6px; vertical-align: 2px; }
+  .tag.done { background: #dff3e3; color: #145c26; }
+  .tag.now { background: #fff1c9; color: #7a5200; }
+  .tag.todo { background: #eee; color: #555; }
+  p { margin: 4px 0; }
+  code { font: 10.5px ui-monospace, Menlo, Consolas, monospace; background: #f2f2f2; padding: 0 3px; border-radius: 2px; }
+  .sub { color: #555; margin: 0 0 8px; }
+  .warn { border: 2px solid #c00; background: #fff3f3; padding: 6px 8px; margin: 8px 0; break-inside: avoid; }
+  .warn ul { margin: 2px 0 0 16px; padding: 0; }
+  .note { border-left: 4px solid #1f5fd6; background: #f1f5fd; padding: 5px 8px; margin: 6px 0; break-inside: avoid; }
+  .now { border-left: 4px solid #e0a000; background: #fff8e3; padding: 5px 8px; margin: 6px 0; break-inside: avoid; }
+
+  /* step list */
+  table.steps { width: 100%; border-collapse: collapse; }
+  table.steps td { border: 1px solid #bbb; padding: 5px 7px; vertical-align: top; }
+  table.steps td.cb { width: 26px; text-align: center; }
+  table.steps td.n { width: 30px; font-weight: 700; color: #555; text-align: right; }
+  table.steps tr { break-inside: avoid; }
+  tr.done td { background: #eef8f0; }
+  .res { display: block; margin-top: 3px; font-size: 10px; color: #555; }
+  .res::before { content: "Expected: "; font-weight: 700; }
+
+  /* connector */
+  .conn { border: 3px solid #222; border-radius: 6px; background: #2b2b2b; padding: 8px; display: inline-block; max-width: 100%; overflow-x: auto; }
+  .conn table { border-collapse: separate; border-spacing: 5px; }
+  .conn td { width: 62px; height: 52px; border-radius: 4px; text-align: center; vertical-align: middle; font-size: 10px; font-weight: 700; line-height: 1.2; border: 2px solid #000; }
+  .conn td.empty { background: #555; color: #999; font-weight: 400; border-color: #444; }
+  .conn td.nc { background: #555; color: #fff; border: 2px dashed #fff; }
+  .conn .lbl { display: block; font-size: 9px; font-weight: 500; }
+  .colhead td { height: auto; border: 0; background: none; color: #ddd; font-size: 10px; }
+  .conn td.rowhead { color: #ddd; font-size: 10px; font-weight: 700; border: 0; background: none; width: auto; }
+  .red    { background: #d62020; color: #fff; }
+  .white  { background: #fff; color: #000; }
+  .green  { background: #1e9e3a; color: #fff; }
+  .blue   { background: #1f5fd6; color: #fff; }
+  .orange { background: #f07d10; color: #000; }
+  .yellow { background: #f5d90a; color: #000; }
+  .brown  { background: #7a4a1e; color: #fff; }
+  .black  { background: #000; color: #fff; border-color: #888 !important; }
+  .bridge { background: repeating-linear-gradient(45deg, #1f5fd6 0 6px, #7fa6ef 6px 12px); color: #fff; }
+
+  /* tables */
+  .tw { overflow-x: auto; }
+  table.t { width: 100%; border-collapse: collapse; margin-top: 6px; }
+  table.t th, table.t td { border: 1px solid #999; padding: 4px 6px; text-align: left; vertical-align: middle; }
+  table.t th { background: #eee; font-size: 10px; text-transform: uppercase; letter-spacing: .03em; }
+  table.t tr { break-inside: avoid; }
+  .sw { display: inline-block; width: 13px; height: 13px; border-radius: 3px; border: 1px solid #000; vertical-align: -2px; margin-right: 4px; }
+  .box { width: 16px; height: 16px; margin: 0; cursor: pointer; accent-color: #1e9e3a; }
+  .ascii { font: 10px/1.3 ui-monospace, Menlo, Consolas, monospace; background: #f6f6f6; border: 1px solid #ccc; padding: 6px 8px; white-space: pre; overflow-x: auto; margin: 6px 0; break-inside: avoid; }
+  pre.cmd { position: relative; font: 10.5px/1.35 ui-monospace, Menlo, Consolas, monospace; background: #1d1d1d; color: #eee; padding: 6px 54px 6px 8px; border-radius: 4px; white-space: pre-wrap; word-break: break-all; margin: 4px 0; }
+  .copy { position: absolute; top: 3px; right: 3px; font: 10px system-ui, sans-serif; padding: 2px 6px; border: 1px solid #666; border-radius: 3px; background: #333; color: #eee; cursor: pointer; }
+  .small { font-size: 10px; color: #444; }
+  .pw { font: 11px ui-monospace, Menlo, Consolas, monospace; background: #f6f6f6; border: 1px solid #ccc; padding: 1px 5px; word-break: break-all; }
+  .toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0; }
+  .toolbar button { font: inherit; padding: 4px 10px; border: 1px solid #888; border-radius: 4px; background: #f4f4f4; cursor: pointer; }
+  .toolbar .saved { color: #555; font-size: 10px; }
+  .appendix { break-before: page; }
+  @media print { .toolbar, .copy { display: none; } tr.done td { background: none; } }
+</style>
+</head>
+<body>
+
+<h1>Dreame W10 (P2027): Root Checklist</h1>
+<p class="sub">UART root without the breakout PCB → DustBuilder rooted firmware → Valetudo.<br>
+W10 = UART method, <b>no secure boot</b>, Valetudo build <code>armv7-lowmem</code>. Full explanations: <code>rooting-guide.md</code>. The official <a href="https://valetudo.cloud/pages/installation/dreame/">Valetudo Dreame guide</a> is the source of truth.</p>
+
+<div class="toolbar">
+  <button type="button" id="reset">Clear all ticks</button>
+  <span class="saved">Your ticks are saved automatically in this browser.</span>
+</div>
+
+<div class="note"><b>Placeholders:</b> <code>&lt;SERIAL&gt;</code> = serial from the sticker under the dustbin (capitals) · <code>&lt;XXXX&gt;</code> = end of the robot hotspot name <code>dreame-vacuum-p2027_miap&lt;XXXX&gt;</code> · <code>IP:PORT</code> = address printed by the file server (starts with <code>192.168.5.</code>) · <code>&lt;robot-ip&gt;</code> = robot on your home network.</div>
+
+<div class="warn"><b>Safety rules (always)</b>
+  <ul>
+    <li>🔴 Red (VBUS 5V) never goes to the USB-TTL adapter or the laptop. The robot's USB wires never go to the laptop.</li>
+    <li>Robot col 8 (BOOT_SEL), adapter 3V3 and adapter 5V stay empty. The adapter must use 3.3V signals.</li>
+    <li>Wire only with the robot OFF. Unplug in this order: 5V first, ground last.</li>
+    <li>Never power off or undock the robot while the firmware is installing.</li>
+  </ul>
+</div>
+
+<!-- ───────────────────────── PART A ───────────────────────── -->
+<h2>A · Preparation</h2>
+<table class="steps">
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s1"></td><td class="n">1</td><td>Build the rooted firmware on <a href="https://builder.dontvacuum.me">DustBuilder</a> for your serial (preinstalled tools, <b>patch DNS</b> for Valetudo, manual installer). Download <code>dreame.vacuum.p2027_fw.tar.gz</code> and the SSH key zip (its password is in the DustBuilder email).
+    <span class="res">The firmware's md5 matches the one DustBuilder gives you.</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s2"></td><td class="n">2</td><td>Work out the root password from the serial:
+<pre class="cmd">echo -n "&lt;SERIAL&gt;" | md5sum | base64</pre>
+    <span class="res">Same password as on the DustBuilder confirmation.</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s3"></td><td class="n">3</td><td>While still online, download <code>valetudo-helper-httpbridge</code> into a folder, and <code>valetudo-armv7-lowmem</code> plus a copy of the firmware into its <code>www/</code> subfolder.</td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s4"></td><td class="n">4</td><td>Parts: USB-TTL adapter (3.3V), jumper wires for 2.0mm holes, multimeter, USB stick, USB cable cut to get a female socket.</td></tr>
+</table>
+
+<!-- ───────────────────────── PART B ───────────────────────── -->
+<h2>B · Serial connection (UART)</h2>
+<table class="steps">
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s5"></td><td class="n">5</td><td>Open the debug port: dustbin out, rubber flap open → 16-pin 2.0mm socket (see the <b>pin map</b> in the appendix).</td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s6"></td><td class="n">6</td><td><i>Recommended:</i> adapter test: brown (TXD) vs black (GND).
+    <span class="res">≈ 3.3V. 5V means stop and switch the adapter's jumper.</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s7"></td><td class="n">7</td><td>Robot OFF. Connect the 3 UART wires:<br>
+    <span class="sw black"></span>adapter GND / black ↔ <span class="sw black"></span>black → bottom col 6<br>
+    <span class="sw white"></span>adapter RXD / white ↔ <span class="sw orange"></span>orange → top col 6 (robot TX)<br>
+    <span class="sw brown"></span>adapter TXD / brown ↔ <span class="sw yellow"></span>yellow → top col 7 (robot RX)</td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s8"></td><td class="n">8</td><td>Laptop: install the tools and open a logged serial session (<b>Ctrl+A Ctrl+X</b> quits picocom · <b>Ctrl+B D</b> leaves it running · <code>tmux attach -t w10</code> gets back). Your user must be in <code>dialout</code>.
+<pre class="cmd">sudo apt install picocom tmux</pre>
+<pre class="cmd">tmux new -s w10 'picocom -b 115200 --logfile ~/w10_serial.log /dev/ttyUSB0'</pre></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s9"></td><td class="n">9</td><td>Turn the robot on (hold POWER 3s).
+    <span class="res">Readable boot log, <code>chpasswd: password for 'root' changed</code>, Wi-Fi hotspot <code>dreame-vacuum-p2027_miap&lt;XXXX&gt;</code> enabled.</span></td></tr>
+</table>
+
+<!-- ───────────────────────── PART C ───────────────────────── -->
+<h2>C · USB stick &amp; root login</h2>
+<table class="steps">
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s10"></td><td class="n">10</td><td>USB stick: <b>MBR</b> partition table with <b>one FAT32</b> partition (no files needed). Check with <code>lsblk -f</code>.
+    <span class="res"><code>sdX1 vfat FAT32</code>. A table with no partition won't trigger. Fallback: the known-good image <code>dreame_uart_root.img</code> from valetudo.cloud.</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s11"></td><td class="n">11</td><td>Test the cut USB socket cable (red/white/green/black) with the meter.
+    <span class="res">Contact order red, white, green, black · red ↔ black: no short. A socket shell not connected to black is normal on cheap cables.</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s12"></td><td class="n">12</td><td>Robot OFF. Wire the socket:<br>
+    <span class="sw red"></span>red → col 1 · <span class="sw white"></span>white → col 2 · <span class="sw green"></span>green → col 3<br>
+    socket <span class="sw black"></span>black → <span class="sw blue"></span>blue col 5 <b>+</b> <span class="sw bridge"></span>blue scrap col 4 (USB-ID bridge to GND → robot becomes USB host). Insulate the joints.</td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s13"></td><td class="n">13</td><td>Power on, wait for <code>password for 'root' changed</code>, plug the stick into the socket → <code>p2027_release login:</code> → log in as <b>root</b> with the password from step 2.
+    <span class="res"><code>[root@p2027_release:~]#</code> on the stock firmware.</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s14"></td><td class="n">14</td><td>Check free space:
+<pre class="cmd">df -h /tmp /data</pre>
+    <span class="res"><code>/tmp</code> ≈ 110 MB free (RAM) · <code>/data</code> ≈ 120 MB free. Enough for the ~66 MB firmware and ~34 MB Valetudo.</span></td></tr>
+</table>
+
+<!-- ───────────────────────── PART D ───────────────────────── -->
+<h2>D · Backup &amp; file transfer (laptop offline)</h2>
+<div class="note">Joining the robot's hotspot means no internet until step 21 if your laptop has only one Wi-Fi card. Print this page or keep it open locally.</div>
+<table class="steps">
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s15"></td><td class="n">15</td><td>Laptop → robot hotspot. Not listed? Hold the robot's two outer buttons until it talks.
+<pre class="cmd">nmcli dev wifi connect "dreame-vacuum-p2027_miap&lt;XXXX&gt;"</pre></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s16"></td><td class="n">16</td><td>Start the file server and write down the <b>IP:PORT</b> it prints:
+<pre class="cmd">./valetudo-helper-httpbridge-amd64</pre>
+    <span class="res">An address starting with <code>192.168.5.</code></span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s17"></td><td class="n">17</td><td>Robot: backup → upload → free RAM:
+<pre class="cmd">tar cvf /tmp/backup.tar /mnt/private/ /mnt/misc/ /etc/OTA_Key_pub.pem /etc/publickey.pem
+curl -X POST http://IP:PORT/upload -F 'file=@/tmp/backup.tar'
+rm /tmp/backup.tar</pre>
+    <span class="res"><code>Successfully uploaded</code>; ≈ 45 KB <code>backup.tar</code> in <code>www/uploads/</code> with identity (sn, did, key, mac, cpuid), LiDAR calibration, stats, public keys.</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s18"></td><td class="n">18</td><td>Robot: firmware → <code>/tmp</code>, check:
+<pre class="cmd">cd /tmp
+wget http://IP:PORT/dreame.vacuum.p2027_fw.tar.gz
+md5sum /tmp/dreame.vacuum.p2027_fw.tar.gz</pre>
+    <span class="res">Same md5 as DustBuilder's. If not: delete and download again.</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s19"></td><td class="n">19</td><td>Robot: Valetudo → <code>/data</code>, check:
+<pre class="cmd">wget http://IP:PORT/valetudo-armv7-lowmem -O /data/valetudo
+chmod +x /data/valetudo
+ls -l /data/valetudo</pre>
+    <span class="res">Same size as the file on the laptop, executable.</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s20"></td><td class="n">20</td><td>Ctrl+C on the file server, laptop back to your home Wi-Fi.</td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s21"></td><td class="n">21</td><td><b>Copy the backup off the laptop</b> (another stick or private cloud storage). Keep it private: it's your robot's identity.</td></tr>
+</table>
+
+<!-- ───────────────────────── PART E ───────────────────────── -->
+<h2>E · Install the rooted firmware</h2>
+<table class="steps">
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s22"></td><td class="n">22</td><td>Robot: unpack, free RAM, list:
+<pre class="cmd">cd /tmp
+tar -xzvf dreame.vacuum.p2027_fw.tar.gz
+rm dreame.vacuum.p2027_fw.tar.gz
+ls -l</pre>
+    <span class="res">rootfs.img (~29 MB) · boot.img · mcu.bin · UIMA/UIMB.bin · install.sh · firmware.md5sum</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s23"></td><td class="n">23</td><td>Start the install with a 5-minute delay (the installer checks model, size and md5 before writing):
+<pre class="cmd">sleep 300 &amp;&amp; ./install.sh</pre></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s24"></td><td class="n">24</td><td>Unplug the wires from the robot, 5V first and ground last, with the adapter still in the laptop:<br>
+    <span class="sw red"></span>red → <span class="sw white"></span>white → <span class="sw green"></span>green → <span class="sw bridge"></span>bridge → <span class="sw blue"></span>blue → <span class="sw orange"></span>orange → <span class="sw yellow"></span>yellow → <span class="sw black"></span><b>black last</b></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s25"></td><td class="n">25</td><td>Close the flap, put the dustbin back, <b>dock</b> the robot. Then unplug the adapter and the stick.</td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s26"></td><td class="n">26</td><td>Wait <b>about 15 min</b> from step 23 without touching it: update voice/beeps → quiet while writing → reboot (startup sound) → charging on the dock.<br>
+    <span class="small">No reboot at all? The countdown may have been interrupted when unplugging. That's harmless (nothing written); run steps 22–25 again.</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s27"></td><td class="n">27</td><td>Reconnect <b>only the 3 UART wires</b> (step 7). <b>No USB stick needed any more:</b> the rooted firmware keeps a login on the serial port.</td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s28"></td><td class="n">28</td><td>Restart the serial session (step 8), press Enter → log in as <b>root</b> (same password).</td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s29"></td><td class="n">29</td><td><b>Check the root:</b> the banner must show
+<div class="ascii">built with dustbuilder (https://builder.dontvacuum.me)
+&lt;build date&gt;
+&lt;build number&gt;</div>
+    → rooted ✅</td></tr>
+</table>
+
+<!-- ───────────────────────── PART F ───────────────────────── -->
+<h2>F · Valetudo</h2>
+<table class="steps">
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s30"></td><td class="n">30</td><td>Robot shell. Valetudo is already in <code>/data</code> from step 19; turn on the autostart hook and reboot:
+<pre class="cmd">ls -l /data/valetudo
+cp /misc/_root_postboot.sh.tpl /data/_root_postboot.sh
+reboot</pre></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s31"></td><td class="n">31</td><td>Laptop → <code>dreame-vacuum-p2027_miap&lt;XXXX&gt;</code> → open <b>http://192.168.5.1</b> (Valetudo) → set up your <b>home Wi-Fi</b> → laptop back to home Wi-Fi.</td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s32"></td><td class="n">32</td><td>Find the robot's new IP on the home network (router's DHCP list; a reservation keeps it fixed) → open Valetudo at <code>http://&lt;robot-ip&gt;</code>.
+    <span class="res"><code>ps | grep [v]aletudo</code> on the robot shows <code>/data/valetudo</code>.</span></td></tr>
+  <tr><td class="cb"><input type="checkbox" class="box" data-id="s33"></td><td class="n">33</td><td>SSH (no more wires needed). Unzip the DustBuilder key zip (password in the DustBuilder email):
+<pre class="cmd">ssh -i &lt;jobid&gt;.id_rsa root@&lt;robot-ip&gt;</pre></td></tr>
+</table>
+
+<!-- ───────────────────────── APPENDIX ───────────────────────── -->
+<div class="appendix">
+<h2>Appendix 1 · Robot debug connector</h2>
+<div class="conn">
+  <table>
+    <tr class="colhead"><td></td><td>col 1</td><td>col 2</td><td>col 3</td><td>col 4</td><td>col 5</td><td>col 6</td><td>col 7</td><td>col 8</td></tr>
+    <tr>
+      <td class="rowhead">TOP</td>
+      <td class="red">RED<span class="lbl">VBUS 5V</span></td>
+      <td class="white">WHITE<span class="lbl">D−</span></td>
+      <td class="green">GREEN<span class="lbl">D+</span></td>
+      <td class="bridge">BLUE scrap<span class="lbl">USB-ID</span></td>
+      <td class="blue">BLUE<span class="lbl">GND</span></td>
+      <td class="orange">ORANGE<span class="lbl">TX (robot)</span></td>
+      <td class="yellow">YELLOW<span class="lbl">RX (robot)</span></td>
+      <td class="nc">EMPTY<span class="lbl">BOOT_SEL</span></td>
+    </tr>
+    <tr>
+      <td class="rowhead">BOTTOM</td>
+      <td class="empty">–</td><td class="empty">–</td><td class="empty">–</td><td class="empty">–</td><td class="empty">–</td>
+      <td class="black">BLACK<span class="lbl">GND</span></td>
+      <td class="empty">–</td><td class="empty">–</td>
+    </tr>
+  </table>
+</div>
+<p class="small">Dustbin out, flap open, robot top facing <b>up</b>, looking into the port, col 1 = leftmost. The W10 connector is the generic Dreame layout rotated 180°. Every pin was confirmed in practice (UART and USB both worked). Wire colours are the ones used for this guide; any colours work.</p>
+
+<h2>Appendix 2 · Complete wiring</h2>
+<div class="tw"><table class="t">
+  <tr><th>Part</th><th>Pin</th><th>Part wire</th><th></th><th>Robot wire</th><th>Robot hole</th></tr>
+  <tr><td rowspan="3"><b>USB-TTL adapter</b></td><td>GND</td><td><span class="sw black"></span>Black</td><td>↔</td><td><span class="sw black"></span><b>Black</b></td><td>bottom col 6 · GND</td></tr>
+  <tr><td>RXD</td><td><span class="sw white"></span>White (tape-marked)</td><td>↔</td><td><span class="sw orange"></span><b>Orange</b></td><td>top col 6 · robot TX</td></tr>
+  <tr><td>TXD</td><td><span class="sw brown"></span>Brown</td><td>↔</td><td><span class="sw yellow"></span><b>Yellow</b></td><td>top col 7 · robot RX</td></tr>
+  <tr><td rowspan="5"><b>USB socket</b><br><span class="small">(cut cable)</span></td><td>5V</td><td><span class="sw red"></span>Red</td><td>↔</td><td><span class="sw red"></span><b>Red</b></td><td>top col 1 · VBUS</td></tr>
+  <tr><td>D−</td><td><span class="sw white"></span>White</td><td>↔</td><td><span class="sw white"></span><b>White</b></td><td>top col 2 · D−</td></tr>
+  <tr><td>D+</td><td><span class="sw green"></span>Green</td><td>↔</td><td><span class="sw green"></span><b>Green</b></td><td>top col 3 · D+</td></tr>
+  <tr><td rowspan="2">GND</td><td rowspan="2"><span class="sw black"></span>Black</td><td>↔</td><td><span class="sw blue"></span><b>Blue</b></td><td>top col 5 · GND</td></tr>
+  <tr><td>↔</td><td><span class="sw bridge"></span><b>Blue scrap</b> (bridge)</td><td>top col 4 · USB-ID</td></tr>
+  <tr><td colspan="3"><b>Nothing connected</b></td><td></td><td colspan="2">adapter 3V3 · adapter 5V · robot col 8 (BOOT_SEL)</td></tr>
+</table></div>
+<div class="ascii"> Laptop ══USB══ USB-TTL ── black/white/brown ↔ black/orange/yellow ───────────┐
+                                                                             ├── Robot debug port
+ USB stick ══ USB socket ── red/white/green/black ↔ red/white/green/blue+bridge┘
+ Laptop ~~~ Wi-Fi ~~~ robot hotspot (file transfer / Valetudo setup)</div>
+
+<h2>Appendix 3 · Meter checks (reference)</h2>
+<div class="tw"><table class="t">
+  <tr><th>Robot state</th><th>Measure</th><th>Expected</th></tr>
+  <tr><td>OFF, continuity</td><td>black (bottom col 6) ↔ blue (col 5)</td><td>beep (both GND)</td></tr>
+  <tr><td>OFF, continuity</td><td>GND ↔ orange / yellow / red</td><td>no beep</td></tr>
+  <tr><td>ON, DC volts, black probe on GND</td><td>orange (TX) · yellow (RX)</td><td>≈ 3.3V · ≈ 3.3V or lower</td></tr>
+  <tr><td>ON, DC volts</td><td>red (VBUS) without / with the bridge</td><td>≈ 0V / ≈ 5V</td></tr>
+  <tr><td>Adapter in the PC</td><td>adapter brown (TXD) ↔ black (GND)</td><td>≈ 3.3V (5V means STOP)</td></tr>
+  <tr><td>Cable alone</td><td>4 wires ↔ 4 socket contacts</td><td>order red, white, green, black across the row; red ↔ black no beep</td></tr>
+</table></div>
+
+<h2>Appendix 4 · Troubleshooting</h2>
+<div class="tw"><table class="t">
+  <tr><th>Symptom</th><th>Try</th></tr>
+  <tr><td>No text in picocom</td><td>Swap orange/yellow. Check black GND. Is the adapter on <code>/dev/ttyUSB0</code> (<code>ls /dev/ttyUSB*</code>)?</td></tr>
+  <tr><td>Garbage characters</td><td>Baud must be 115200; loose GND</td></tr>
+  <tr><td>No login prompt after the stick (stock firmware)</td><td>VBUS ≈ 5V? Bridge to GND? D+/D− swapped? Real partition on the stick? Use the known-good image.</td></tr>
+  <tr><td>Login incorrect</td><td>Serial in capitals, from the sticker under the dustbin; recompute the password</td></tr>
+  <tr><td>Robot Wi-Fi gone</td><td>Hold the two outer buttons until it talks (it turns off 30 min after boot)</td></tr>
+  <tr><td>curl / wget fails</td><td>Laptop on the robot's Wi-Fi? IP 192.168.5.x? File server still running? Right port?</td></tr>
+  <tr><td>tmux "no server running"</td><td>The session ended (adapter unplugged). Start it again (step 8).</td></tr>
+</table></div>
+<p class="small">Sources: valetudo.cloud Dreame UART guide &amp; supported-robots page · DustBuilder · DustBuilder firmware install.sh / diff.txt</p>
+</div>
+
+<script>
+(function () {
+  var KEY = 'w10-root-checklist-v1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input.box[data-id]'));
+  var state = null;
+  try { state = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+
+  function mark(el) { var row = el.closest('tr'); if (row) row.classList.toggle('done', el.checked); }
+  function save() {
+    var s = {}; boxes.forEach(function (el) { s[el.dataset.id] = el.checked; });
+    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {}
+  }
+
+  if (state) boxes.forEach(function (el) { if (el.dataset.id in state) { el.checked = !!state[el.dataset.id]; mark(el); } });
+  boxes.forEach(function (el) { el.addEventListener('change', function () { mark(el); save(); }); });
+
+  document.querySelectorAll('pre.cmd').forEach(function (pre) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'copy'; b.textContent = 'Copy';
+    b.addEventListener('click', function () {
+      var c = pre.cloneNode(true); c.querySelectorAll('.copy').forEach(function (x) { x.remove(); });
+      var text = c.textContent.trim();
+      function done() { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = 'Copy'; }, 1200); }
+      function fallback() {
+        var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {} document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+      else fallback();
+    });
+    pre.appendChild(b);
+  });
+
+  var resetBtn = document.getElementById('reset'), armed = false;
+  resetBtn.addEventListener('click', function () {
+    if (!armed) { armed = true; resetBtn.textContent = 'Click again to confirm'; setTimeout(function () { armed = false; resetBtn.textContent = 'Clear all ticks'; }, 3000); return; }
+    boxes.forEach(function (el) { el.checked = false; mark(el); }); save(); armed = false; resetBtn.textContent = 'Clear all ticks';
+  });
+})();
+</script>
+</body>
+</html>
